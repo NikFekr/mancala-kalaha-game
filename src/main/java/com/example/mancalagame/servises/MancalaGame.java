@@ -5,7 +5,6 @@ import com.example.mancalagame.exceptions.GameIsNotEndedException;
 import com.example.mancalagame.exceptions.GameIsNotStartedException;
 import com.example.mancalagame.exceptions.StonesOfBigPitCanNotBePlayedException;
 import com.example.mancalagame.models.Pit;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -146,8 +145,8 @@ public class MancalaGame {
     }
 
     public boolean checkIsGameEnded() {
-        return Arrays.stream(gameBoard, 0, 6).allMatch((pit) -> pit.getStoneCount() == 0)
-                || Arrays.stream(gameBoard, 7, 13).allMatch((pit) -> pit.getStoneCount() == 0);
+        return Arrays.stream(gameBoard, 0, 6).allMatch(pit -> pit.getStoneCount() == 0)
+                || Arrays.stream(gameBoard, 7, 13).allMatch(pit -> pit.getStoneCount() == 0);
     }
 
     public void setTurn(int turn) {
@@ -187,7 +186,7 @@ public class MancalaGame {
         return sumOfThePlayerOneStones.orElse(0) > sumOfThePlayerTwoStones.orElse(0);
     }
 
-    public void captureStonesToBigPitInPrise(int lastPlayedIndex, int bigPitIndex) throws InvalidArgumentException {
+    public void captureStonesToBigPitInPrise(int lastPlayedIndex, int bigPitIndex) throws IllegalArgumentException {
         if (Objects.isNull(gameBoard)) {
             throw new GameIsNotStartedException(GAME_IS_NOT_STARTED);
         }
@@ -199,7 +198,7 @@ public class MancalaGame {
 
     }
 
-    public void captureStonesToPlayerOwnLastPlayedIndexInPrise(int lastPlayedIndex) throws InvalidArgumentException {
+    public void captureStonesToPlayerOwnLastPlayedIndexInPrise(int lastPlayedIndex) throws IllegalArgumentException {
         if (Objects.isNull(gameBoard)) {
             throw new GameIsNotStartedException(GAME_IS_NOT_STARTED);
         }
@@ -211,7 +210,7 @@ public class MancalaGame {
 
     }
 
-    private void capturePitStones(int lastPlayedIndex, Pit pit) throws InvalidArgumentException {
+    private void capturePitStones(int lastPlayedIndex, Pit pit) throws IllegalArgumentException {
         int stoneCount = gameBoard[lastPlayedIndex].getStoneCount() +
                 gameBoard[getOpponentPit(lastPlayedIndex)].getStoneCount();
 
@@ -222,9 +221,9 @@ public class MancalaGame {
         return pit.getPitType().equals(PitType.NORMAL_PIT);
     }
 
-    private int getOpponentPit(int pitIndex) throws InvalidArgumentException {
+    private int getOpponentPit(int pitIndex) throws IllegalArgumentException {
         if (pitIndex < 0 || pitIndex >= 13 || pitIndex == 6) {
-            throw new InvalidArgumentException(new String[]{"Pit Number is out of range"});
+            throw new IllegalArgumentException("Pit Number is out of range");
         }
 
         return 12 - pitIndex;
