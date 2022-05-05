@@ -33,7 +33,7 @@ public class MancalaGameApplication {
 
     private ApiInfo generateApiInfo() {
         return new ApiInfo("Mancala Game",
-                "This application is for applicant test",
+                "This application is demonstrating Mankala or Kalaha game",
                 "Version 1.0",
                 "null",
                 new Contact("Esmaeil Nikfekr", "mancalagame.example.com", "se.esmaeil.nikfekr@gmail.com"),
